@@ -1,0 +1,63 @@
+﻿@page "/ingreso"
+
+@using Biblioteca.Models
+@code {
+    private List<Revista> revistas = new();
+    private List<LibroElectronico> librosElectronicos = new();
+    private Revista nuevaRevista = new();
+    private LibroElectronico nuevoLibroElectronico = new();
+
+    private void AgregarRevista()
+    {
+        revistas.Add(nuevaRevista);
+        nuevaRevista = new Revista();
+    }
+
+    private void AgregarLibroElectronico()
+    {
+        librosElectronicos.Add(nuevoLibroElectronico);
+        nuevoLibroElectronico = new LibroElectronico();
+    }
+}
+
+<h3>Ingreso de Revista</h3>
+<EditForm Model="nuevaRevista" OnValidSubmit="AgregarRevista">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputText id="titulo" @bind-Value="nuevaRevista.Titulo" placeholder="Título" />
+    <InputText id="autor" @bind-Value="nuevaRevista.Autor" placeholder="Autor" />
+    <InputText id="genero" @bind-Value="nuevaRevista.Genero" placeholder="Género" />
+    <InputNumber id="año" @bind-Value="nuevaRevista.AñoPublicacion" placeholder="Año de Publicación" />
+    <InputNumber id="volumen" @bind-Value="nuevaRevista.Volumen" placeholder="Volumen" />
+    <InputNumber id="numero" @bind-Value="nuevaRevista.NumeroEjemplar" placeholder="Número de Ejemplar" />
+    <button type="submit">Agregar Revista</button>
+</EditForm>
+
+<h3>Ingreso de Libro Electrónico</h3>
+<EditForm Model="nuevoLibroElectronico" OnValidSubmit="AgregarLibroElectronico">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputText id="titulo" @bind-Value="nuevoLibroElectronico.Titulo" placeholder="Título" />
+    <InputText id="autor" @bind-Value="nuevoLibroElectronico.Autor" placeholder="Autor" />
+    <InputText id="genero" @bind-Value="nuevoLibroElectronico.Genero" placeholder="Género" />
+    <InputNumber id="año" @bind-Value="nuevoLibroElectronico.AñoPublicacion" placeholder="Año de Publicación" />
+    <InputText id="formato" @bind-Value="nuevoLibroElectronico.Formato" placeholder="Formato" />
+    <InputNumber id="tamaño" @bind-Value="nuevoLibroElectronico.TamañoArchivo" placeholder="Tamaño del Archivo (MB)" />
+    <button type="submit">Agregar Libro Electrónico</button>
+</EditForm>
+
+<h3>Listado de Revistas</h3>
+<ul>
+    @foreach (var revista in revistas)
+    {
+        <li>@revista.Titulo - @revista.Autor</li>
+    }
+</ul>
+
+<h3>Listado de Libros Electrónicos</h3>
+<ul>
+    @foreach (var libro in librosElectronicos)
+    {
+        <li>@libro.Titulo - @libro.Autor</li>
+    }
+</ul>
